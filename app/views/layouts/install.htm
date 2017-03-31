@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>{{ @page['title']}}</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="stylesheet" type="text/css" href="{{@home_url}}/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="{{@home_url}}/css/install.css">
+<link rel="stylesheet" type="text/css" href="{{@home_url}}/css/pace-flash.css">
+<script type="text/javascript" src="{{@home_url}}/js/jquery.min.js"></script>
+<script type="text/javascript" src="{{@home_url}}/js/pace.min.js"></script>
+<script type="text/javascript" src="{{@home_url}}/js/ajaxify.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+$("#installer").ajaxify({prefetch : true});
+});
+</script>
+<check if="{{ @active_menu == '/install/database' || @active_menu == '/install/admin_create' }}">
+<script type="text/javascript" src="{{@home_url}}/js/validator.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+$('#creation').validator();
+});
+</script>
+</check>
+</head>
+<body>
+<div class="container">
+
+<div class="row" id="installer">
+
+<div class="col-md-3">
+<ul class="list-group">
+<li class="list-group-item<check if="{{ @active_menu == '/install' }}"> active</check>"><i class="icon-home"></i> Introduction </li>
+<li class="list-group-item<check if="{{ @active_menu == '/install/check_permission' }}"> active</check>"><i class="icon-th-list"></i> Requirements</li>
+<li class="list-group-item<check if="{{ @active_menu == '/install/database'}}"> active</check>"><i class="icon-cog"></i> Installation</li>
+<li class="list-group-item<check if="{{ @active_menu == '/install/admin_create' }}"> active</check>"><i class="icon-user"></i> Admin Account</li>
+<li class="list-group-item<check if="{{ @active_menu == '/install/finish' }}"> active</check>"><i class="icon-ok"></i> Finish</li>
+</ul>
+</div>
+
+<div class="col-md-9">
+<include if="{{ @page.content }}" href="{{ @page.content }}" />
+</div>
+
+</div> <!-- row -->
+
+</div><!-- container -->
+
+</body>
+</html>

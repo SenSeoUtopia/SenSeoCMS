@@ -1,0 +1,11 @@
+/app/tmp
+/vendor
+/public/covers
+/public/uploads
+/public/mangas
+composer.phar
+composer.lock
+.DS_Store
+Thumbs.db
+.idea
+*.bak

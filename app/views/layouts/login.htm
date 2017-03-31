@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<check if="{{ @active_menu ==='/' }}">
+<true><title>{{ @lang_site_title}}</title> </true>
+<false><title>{{ @page['title']}} - {{ @lang_site_title}}</title> </false>
+</check>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="stylesheet" type="text/css" href="{{@home_url}}/css/admincp.css">
+<link rel="stylesheet" type="text/css" href="{{@home_url}}/css/responsive.css">
+<link rel="stylesheet" type="text/css" href="{{@home_url}}/css/pace-flash.css">
+<script type="text/javascript" src="{{@home_url}}/js/jquery.min.js"></script>
+<script type="text/javascript" src="{{@home_url}}/js/pace.min.js"></script>
+<script type="text/javascript">
+var base_url = "{{@home_url}}/";
+var img_url = "{{@home_url.'/img'}}/";
+</script>
+</head>
+<body>
+<div class="container">
+
+<div class="login-box">
+<div class="logo">
+<a href="{{ @home_url }}"><img src="{{ @home_url }}/img/logo.png" alt="{{ @lang_site_title }}"></a>
+</div>
+<check if="{{ @active_menu ==='/admincp/stop' }}">
+<false>
+<div class="lb-header">
+<a href="{{@home_url }}/login"<check if="{{ @active_menu ==='/login' || @active_menu ==='/admincp/login'}}"> class="active"</check>>Login</a>
+<a href="{{@home_url }}/register"<check if="{{ @active_menu ==='/register' }}"> class="active"</check>>Sign Up</a>
+<a href="{{@home_url }}/forgot"<check if="{{ @active_menu ==='/forgot' }}">class="active" </check>>Forgot password?</a>
+<a href="{{@home_url }}/register/resend_email"<check if="{{ @active_menu ==='/register/resend_email' }}">class="active" </check>>Resend Activation</a>
+</div>
+<div class="clear"></div>
+</false>
+</check>
+<include if="{{ isset(@page.content) }}" href="{{ @page.content }}" />
+</div>
+
+<div class="clear"></div>
+
+</div><!-- container -->
+<div class="clear"></div>
+</body>
+</html>

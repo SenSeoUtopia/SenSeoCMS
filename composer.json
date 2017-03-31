@@ -1,0 +1,30 @@
+{
+	"name": "SenSeoCMS",
+	"description": "Another CMS",
+	"minimum-stability": "stable",
+	"authors": [
+	{
+		"name": "Brandan White",
+		"email": "tom.chris.hanks@gmail.com"
+	}
+	],
+	"require": {
+		"bcosca/fatfree": "^3.6.0",
+		"google/recaptcha": "^1.1",
+		"illuminate/database": "^5.3",
+		"Illuminate/Pagination": "^5.3",
+		"intervention/imagecache": "^2.3",
+		"phpmailer/phpmailer": "^5.2",
+		"ikkez/f3-opauth": "dev-master",
+		"xfra35/f3-access": "^v1.0.0"
+	},
+	"autoload": {
+		"classmap" :[
+		"app/controllers",
+		"app/models"
+		],
+		"files": [
+		"app/functions.php"
+		]
+	}	
+}
