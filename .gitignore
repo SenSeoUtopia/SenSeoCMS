@@ -1,8 +1,8 @@
+/app/cache
 /app/tmp
-/vendor
-/public/covers
+/app/tmp/cache
 /public/uploads
-/public/mangas
+/vendor
 composer.phar
 composer.lock
 .DS_Store

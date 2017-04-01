@@ -16,7 +16,8 @@
 		"intervention/imagecache": "^2.3",
 		"phpmailer/phpmailer": "^5.2",
 		"ikkez/f3-opauth": "dev-master",
-		"xfra35/f3-access": "^v1.0.0"
+		"xfra35/f3-access": "^v1.0.0",
+		"twig/twig": "^2.0"
 	},
 	"autoload": {
 		"classmap" :[

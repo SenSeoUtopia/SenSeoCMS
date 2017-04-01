@@ -12,8 +12,8 @@ class Controller {
 	protected $app_dir;
 	protected $public_dir;
 	protected $home_url;
-	protected $tpl;
-    protected $theme;
+	protected $template;
+	protected $theme;
 
 	function __construct() {
 
@@ -33,13 +33,30 @@ class Controller {
 
 		// Covers Dir
 		$this->upload_dir = $f3->get('upload_dir');
+		
+		// Theme
+		$theme = $f3->get('theme');	
+		
+		if(file_exists($f3->UI."themes/$theme/layout.htm")){
+			$template = "themes/$theme/layout.htm";
+		} else if(file_exists($this->public_dir."/themes/$theme/layout.htm")) {
+			$this->f3->UI = $this->public_dir."/themes/$theme/";
+			$template = "layout.htm";
+		} else {
+			$template = "themes/default/layout.htm";
+		}		
+		
+		$this->theme = $theme;
+		
+		
+		// Theme
+		$this->template = $template;		
 
 		// Change Language
 		$ip = $f3->get("IP");
 
 		if(!$f3->get("installed")) return $f3->reroute("/install");
 
-		$country_code = geoip_country_code_by_name($ip);
 
 		/* Database Connect */
 		try {
@@ -157,30 +174,35 @@ class Controller {
 		if($maintenance){
 			$f3->status(503);
 
-				echo Template::instance()->render('503.htm');
-				exit;
+			echo Template::instance()->render('503.htm');
+			exit;
 
 
 		}
+		
+		/* Register Filters */
+		$preview = Template::instance();
+		$preview->filter('crop','Helper::instance()->crop');
+		$preview->filter('remove_tags','Helper::instance()->remove_tags');
+		$preview->filter('remove_slash','Helper::instance()->remove_slash');
+		$preview->filter('remove_spaces','Helper::instance()->remove_spaces');
+		$preview->filter('remove_execute_code','Helper::instance()->remove_execute_code');
+		$preview->filter('remove_white_spaces','Helper::instance()->remove_white_spaces');
+		$preview->filter('join','Helper::instance()->join');
+		$preview->filter('replace_data','Helper::instance()->replace_data');
+		//	echo $preview->render($this->template);
+		
 
-		$theme = $f3->get("theme");
+		$loader = new Twig_Loader_Filesystem(array($this->f3->get("UI"),$this->f3->UI.'themes/default'));
+		$twig = new Twig_Environment($loader, array(
+		'cache' => $this->app_dir."/cache",
+		'auto_reload' => $f3->get('RELOAD'),
+		'debug' => true,
+		));
 
-        $this->theme = $theme;
+		$twig->addExtension(new Twig_Extension_Debug());
 
-		if(isset($this->tpl)){
-			/* Register Filters */
-			$preview = Template::instance();
-			$preview->filter('crop','Helper::instance()->crop');
-			$preview->filter('remove_tags','Helper::instance()->remove_tags');
-			$preview->filter('remove_slash','Helper::instance()->remove_slash');
-			$preview->filter('remove_spaces','Helper::instance()->remove_spaces');
-			$preview->filter('remove_execute_code','Helper::instance()->remove_execute_code');
-			$preview->filter('remove_white_spaces','Helper::instance()->remove_white_spaces');
-			$preview->filter('join','Helper::instance()->join');
-			$preview->filter('replace_data','Helper::instance()->replace_data');
-			echo $preview->render($this->theme.'/'.$this->tpl);
-		}
-
+		echo $twig->render($this->template, array('app' => $f3));
 	}
 
 }

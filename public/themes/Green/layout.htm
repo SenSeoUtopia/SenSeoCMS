@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   {% if active_menu == '/' %}
+	<title>{{ app.site_title}}</title>
+	{% else %}
+    <title>{{ app.page.title }} - {{ app.site_title}}</title>
+   {% endif %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="stylesheet" type="text/css" href="{{app.home_url}}/css/admincp.css">
+    <link rel="stylesheet" type="text/css" href="{{app.home_url}}/css/responsive.css">
+    <link rel="stylesheet" type="text/css" href="{{app.home_url}}/css/pace-flash.css">
+    <script type="text/javascript" src="{{app.home_url}}/js/jquery.min.js"></script>
+    <script type="text/javascript" src="{{app.home_url}}/js/pace.min.js"></script>
+    <script type="text/javascript">
+        var base_url = "{{ app.home_url}}/";
+        var img_url = "{{ app.home_url}}/img/";
+    </script>
+</head>
+<body>
+<div class="container">
+	
+{{ include(app.page.content) }}
+
+</div><!-- container -->
+<div class="clear"></div>
+</body>
+</html>
